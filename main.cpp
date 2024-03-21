@@ -1,22 +1,27 @@
-#include <algorithm>
-#include <vector>
-using namespace std;
-class Solution{
-  int minSubArrayLen(int target,vector<int>& nums){
-    int front = 0;
-    int result = nums.size()+1;
-    int sum = 0;
-    for(int j = 0;j<nums.size();j++){
-      sum += nums[j];
-      while(sum >= target){
-        result = min(result,j - front + 1);
-        sum -= nums[front];
-        front++;
+struct ListNode {
+  int val;
+  ListNode *next;
+  ListNode(int x) : val(x), next(nullptr) {}
+};
+class Solution {
+public:
+  ListNode *removeElements(ListNode *head, int val) {
+    ListNode *virtualHead = new ListNode(0);
+    virtualHead->next = head;
+    ListNode * index = virtualHead;
+    while (index != nullptr &&index->next!=nullptr) {
+      if(index->next->val == val){
+        ListNode * temp = index-> next;
+        index->next = index->next->next;
+        delete(temp);
+      }else{
+        index = index->next;
       }
     }
-    if(result > nums.size()){
-      return 0;
-    }
-    return result;
+    ListNode * temp = virtualHead;
+    virtualHead = temp->next;
+    delete(temp);
+    return virtualHead;
   }
 };
+

@@ -8,3 +8,4 @@ mv:
 	./mv.sh
 clean:
 	rm -rf a.out
+	rm -rf main
